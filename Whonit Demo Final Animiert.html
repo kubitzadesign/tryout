@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Whonit UI</title>
+<style>
+  .whonit-container {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 16px;
+    max-width: 500px;
+    margin: 10px auto;
+    font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, "sans-serif";
+    position: relative; /* Added for absolute positioning of :after */
+	
+  }
+
+  .whonit-header {
+    text-align: left;
+	color: #3e3e3f;
+	margin-top: -10px;
+    margin-bottom: 10px; /* Increased margin-bottom for spacing */
+    position: relative; /* Required for absolute positioning of :after */
+  }
+
+  .whonit-header::after {
+    content: "";
+    position: absolute;
+    left: -16px; /* Adjust to touch the container edge */
+    right: -16px; /* Adjust to touch the container edge */
+    bottom: -5px; /* Adjust to place the line below the title */
+    height: 1px; /* Height of the horizontal line */
+    background-color: #ccc; /* Color of the horizontal line */
+  }
+
+  .whonit-status {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .active  {
+    position: relative; /* Added for absolute positioning of avatars */
+  }
+	
+.inactive {
+  margin-left: auto; /* Pushes the inactive section to the right */
+  margin-right: 250px; /* Adjust this value to control the spacing on the right */
+  /* Additional properties */
+}
+
+  .user-avatar-container {
+    display: inline-block; /* Align containers side by side */
+    position: relative;
+    margin-right: 30px; /* Adjust to create stacking effect */
+	padding-top: -10px;
+  }
+
+  .user-avatar {
+    border-radius: 50%;
+    width: 50px; 
+    height: 50px;
+    cursor: pointer;
+    position: absolute;
+    top: -10px;
+  }
+
+  .inactive .user-avatar {
+    opacity: 0.5; /* 50% transparency for inactive avatars */
+  }
+
+  
+
+.user-name {
+  display: none; /* Keep the username hidden by default */
+  text-align: center; /* Center the text */
+  font-size: 12px;
+  color: white; /* Set the text color to white */
+  background-color: #3e3e3f; /* Set the background color to the specified grey */
+  border-radius: 5px; /* Rounded corners */
+  padding: 5px 10px; /* Padding inside the rectangle */
+  position: absolute;
+  bottom: -75px; /* Adjust as needed to position below the avatar */
+  left: 50%; /* Start the left edge of the label at the center of the avatar */
+  white-space: nowrap; /* Prevent the username from wrapping */
+}
+
+  .user-avatar:hover + .user-name {
+    display: block;
+  }
+
+  .subheading {
+    font-weight: lighter;
+    margin-top: 0;
+    margin-bottom: 1em;
+	color: #4E4E4E;
+  }
+  
+  /* Adjust the size of the container based on the number of avatars */
+  .whonit-status:after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+  
+  /* Keep the container size consistent */
+  .whonit-container {
+    min-height: 140px; /* Set a minimum height for the container */
+  }
+
+</style>
+</head>
+<body>
+
+<div class="whonit-container">
+  <div class="whonit-header">whonit</div>
+  <div class="whonit-status">
+    <div class="active">
+      <p class="subheading">Active</p>
+      <div class="user-avatar-container">
+        <img src="https://honicon.com/wp-content/uploads/2024/04/Paul.png" alt="Active User Paul" class="user-avatar" />
+        <div class="user-name">Paul</div>
+      </div>
+		      <div class="user-avatar-container">
+        <img src="https://honicon.com/wp-content/uploads/2024/04/Marisha.png" alt="Active User Paul" class="user-avatar" />
+        <div class="user-name">Marisha</div>
+      </div>
+      <!-- Add additional active users here -->
+    </div>
+    <div class="inactive">
+      <p class="subheading">Inactive</p>
+      <div class="user-avatar-container">
+            <img id="ruben-avatar" src="https://honicon.com/wp-content/uploads/2024/04/Ruben.png" alt="Inactive User Ruben" class="user-avatar inactive-avatar" />
+    <div id="ruben-name" class="user-name inactive-name">Ruben</div>
+      </div>
+      <!-- Add additional inactive users here -->
+    </div>
+  </div>
+</div>
+
+<script>
+  // This function toggles the class of Ruben's avatar and name between active and inactive
+  function toggleRubenStatus() {
+    var rubenAvatar = document.getElementById('ruben-avatar');
+    var rubenName = document.getElementById('ruben-name');
+    
+    rubenAvatar.classList.toggle('inactive-avatar');
+    rubenName.classList.toggle('inactive-name');
+
+    // Move Ruben between the Active and Inactive containers
+    var activeContainer = document.querySelector('.active');
+    var inactiveContainer = document.querySelector('.inactive');
+    
+    if (rubenAvatar.classList.contains('inactive-avatar')) {
+      inactiveContainer.appendChild(rubenAvatar.parentElement); // Move to inactive
+    } else {
+      activeContainer.appendChild(rubenAvatar.parentElement); // Move to active
+    }
+  }
+
+  // Set an interval to toggle the status every 15 seconds
+  setInterval(toggleRubenStatus, 5000);
+</script>
+	
+</body>
+</html>
